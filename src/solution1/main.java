@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * to repair my wounded pride
  *
  * PROBLEM
- * Take a list of calendar appointments and mark the appointments with conflicts.
+ * Take a list of calendar appointments and mark the appointments with conflicts (i.e. overlapping time).
  * Be as efficient as possible.
  *
  *
@@ -35,6 +35,8 @@ import java.util.ArrayList;
  *  This gives the advantage that when testing for conflicts with b, we do not need to search for end times in a
  *
  *  This relationship works because conflicted appointments are commutative.
+ *  In otherwords, if we test a vs b and then b vs a,
+ *
  *
  *  So, we can run through entries and test for conflicts by closest start time only,
  *  which is the next entry in the sorted list.
