@@ -34,10 +34,10 @@ import java.util.ArrayList;
  *
  *  This gives the advantage that when testing for conflicts with b, we do not need to search for end times in a
  *
- *  This relationship works because conflicted appointments are commutative
+ *  This relationship works because conflicted appointments are commutative.
  *
  *  So, we can run through entries and test for conflicts by closest start time only,
- *  which is the next entry
+ *  which is the next entry in the sorted list.
  *
  *
  */
@@ -51,42 +51,15 @@ public class main {
         //assume data exists
         ArrayList<CalendarEntry> arr = new ArrayList<>();
 
-
-
+        for (int k=0; k < arr.size()-1; k++){
+            if ( isStartIn(arr.get(k+1).getStart(),arr.get(k))){
+                arr.get(k).setConflict(true);
+                arr.get(k+1).setConflict(true);
+            }
+        }
     }
 
-    int binarySearchNextHighestStartTime(int myIndex, ArrayList<CalendarEntry> arr, long startTime){
-        //avoid overflow by dividing by 2 first
-        long diff = startTime / 2 + endTime /2;
-        int index = binarySearchClosest(arr, diff);
-
-
-    }
-
-    private int binarySearchClosest(ArrayList<CalendarEntry> arr, long target) {
-
-        //want to find minimum difference, return leftmost if equal
-        int left = 0;
-        int right = arr.size() - 1;
-        long difference = Long.MAX_VALUE;
-        long tempDiff;
-
-
-        // to prevent overflow;
-        // (left%2 + right%2)/2  this adds one to division iff both are odd
-        // which overcomes truncation of both odd numbers when divided by 2
-        int next = (left + right)/2 + (left%2 + right%2)/2;
-
-        int closest = next;
-
-        tempDiff = arr.get(next).getStart() - target;
-
-
-
-
-    }
-
-    boolean isStartIn(long start, CalendarEntry ce){
+    static boolean isStartIn(long start, CalendarEntry ce){
         return (ce.getStart() <= start && start < ce.getEnd());
     }
 
